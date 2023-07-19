@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { Producto } from '../producto';
+import { Producto } from '../../models/producto';
 
 @Component({
   selector: 'app-producto',

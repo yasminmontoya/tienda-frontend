@@ -3,9 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ListaProductosComponent } from './lista-productos/lista-productos.component';
+import { ListaProductosComponent } from './components/lista-productos/lista-productos.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ProductoComponent } from './producto/producto.component';
+import { ProductoComponent } from './components/producto/producto.component';
 
 @NgModule({
   declarations: [
