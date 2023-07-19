@@ -23,4 +23,10 @@ export class ListaDeseosComponent implements OnInit {
     });
   }
 
+  eliminarDeseo(id:number){
+    this.deseoServicio.eliminarDeseo(id).subscribe(dato => {
+      this.obtenerDeseos();
+    });
+  }
+
 }

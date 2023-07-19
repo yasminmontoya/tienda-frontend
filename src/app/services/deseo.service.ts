@@ -17,4 +17,9 @@ export class DeseoService {
       obtenerListaDeDeseos():Observable<Deseo[]>{
         return this.httpClient.get<Deseo[]>(`${this.baseURL}`);
       }
+
+      //este metodo nos sirve para eliminar un deseo
+      eliminarDeseo(id:number): Observable<Object>{
+        return this.httpClient.delete(`${this.baseURL}/${id}`);
+      }
 }
