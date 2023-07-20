@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { HistoricoService } from 'src/app/services/historico.service';
 import { Historico } from 'src/app/models/historico';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lista-productos',
@@ -47,44 +48,51 @@ export class ListaProductosComponent implements OnInit {
   changeFormat(){
     let ChangedFormat = this.pipe.transform(this.today, 'YYYY-MM-dd HH:mm:ss');
     this.changedDate = ChangedFormat;
-    console.log(this.changedDate);
-  }
-
-  obtenerProducto(id:number){
-    this.producto = new Producto();
-    this.productoServicio.obtenerProductoPorId(id).subscribe(dato => {
-      this.producto = dato;
-    });
   }
 
   agregarDeseo(id:number){
     this.deseo = new Deseo();
     this.historico = new Historico();
-
-    this.productoServicio.obtenerProductoPorId(id).subscribe(dato => {
-      console.log("Producto:" + dato.nombre);
-      this.changeFormat();
-
-      this.deseo.setProducto(dato);
-
-      this.historico.setAccion("Agregar");
-      this.historico.setFecha(this.changedDate);
-      this.historico.setProducto(dato);
-
-      this.deseoServicio.registrarDeseo(this.deseo).subscribe(dato => {
-        //console.log(dato);
-        //this.obtenerProductos();
-      },error => console.log(error));
-
-      this.historicoServicio.registrarHistorico(this.historico).subscribe(dato => {
-        //console.log(dato);
-        //this.obtenerProductos();
-      },error => console.log(error));
+    swal({
+      title: '¿Estás seguro?',
+      text: "Confirma si deseas agregar el producto a la lista de deseos",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, agregarlo',
+      cancelButtonText: 'No, cancelar',
+      confirmButtonClass: 'btn btn-success',
+      cancelButtonClass: 'btn btn-danger',
+      buttonsStyling: true
+    }).then((result) => {
+      if(result.value){
+        this.productoServicio.obtenerProductoPorId(id).subscribe(dato => {
+          this.changeFormat();
+          this.deseo.setProducto(dato);
+          this.historico.setAccion("Agregar");
+          this.historico.setFecha(this.changedDate);
+          this.historico.setProducto(dato);
+          this.historicoServicio.registrarHistorico(this.historico).subscribe();
+          this.deseoServicio.registrarDeseo(this.deseo).subscribe();
+          swal(
+            'Producto Agregado',
+            'El producto ha sido agregado con exito',
+            'success'
+          )
+          //this.router.navigate(['/deseos']);
+          //window.location.reload();
+          setTimeout(() =>
+          {
+            window.location.reload();
+          },
+          1000);
+        });
+      }
     });
   }
 
   esDeseado(id:number):boolean{
-
     let deseado = false;
     for (let i = 0; i < this.deseos.length; i++) {
       const e = this.deseos[i];

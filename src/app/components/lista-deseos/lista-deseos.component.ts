@@ -5,6 +5,7 @@ import { HistoricoService } from 'src/app/services/historico.service';
 import { ProductoService } from 'src/app/services/producto.service';
 import { DatePipe } from '@angular/common';
 import { Historico } from 'src/app/models/historico';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lista-deseos',
@@ -39,27 +40,36 @@ export class ListaDeseosComponent implements OnInit {
 
   eliminarDeseo(idDeseo:number, idProducto:number){
     this.historico = new Historico();
-
-    this.productoServicio.obtenerProductoPorId(idProducto).subscribe(dato => {
-
-      console.log("producto" + dato)
-      this.changeFormat();
-
-      this.historico.setAccion("Eliminar");
-      this.historico.setFecha(this.changedDate);
-      this.historico.setProducto(dato);
-
-      this.historicoServicio.registrarHistorico(this.historico).subscribe(dato => {
-        console.log(dato);
-      },error => console.log(error));
-
-      this.deseoServicio.eliminarDeseo(idDeseo).subscribe(dato => {
-        this.obtenerDeseos();
-      });
-
+    swal({
+      title: '¿Estás seguro?',
+      text: "Confirma si deseas eliminar el producto de la lista de deseos",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, elimínalo',
+      cancelButtonText: 'No, cancelar',
+      confirmButtonClass: 'btn btn-success',
+      cancelButtonClass: 'btn btn-danger',
+      buttonsStyling: true
+    }).then((result) => {
+      if(result.value){
+        this.productoServicio.obtenerProductoPorId(idProducto).subscribe(dato => {
+          this.changeFormat();
+          this.historico.setAccion("Eliminar");
+          this.historico.setFecha(this.changedDate);
+          this.historico.setProducto(dato);
+          this.historicoServicio.registrarHistorico(this.historico).subscribe();
+          this.deseoServicio.eliminarDeseo(idDeseo).subscribe(dato => {
+            this.obtenerDeseos();
+          });
+          swal(
+            'Producto eliminado',
+            'El producto ha sido eliminado con exito de la lista de deseos',
+            'success'
+          )
+        });
+      }
     });
-
-    return false;
   }
-
 }
