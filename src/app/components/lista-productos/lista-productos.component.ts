@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { DeseoService } from 'src/app/services/deseo.service';
 import { Deseo } from 'src/app/models/deseo';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-productos',
@@ -18,12 +19,14 @@ export class ListaProductosComponent implements OnInit {
   changedDate:any;
   pipe = new DatePipe('en-US');
   producto: Producto;
+  deseos:Deseo[];
 
-  constructor(private productoServicio:ProductoService, private deseoServicio:DeseoService) {
+  constructor(private productoServicio:ProductoService, private deseoServicio:DeseoService,private router:Router) {
   }
 
   ngOnInit(): void {
     this.obtenerProductos();
+    this.obtenerDeseos();
   }
 
   private obtenerProductos(){
@@ -31,6 +34,13 @@ export class ListaProductosComponent implements OnInit {
       this.productos = dato;
     });
   }
+
+  private obtenerDeseos(){
+    this.deseoServicio.obtenerListaDeDeseos().subscribe(dato => {
+      this.deseos = dato;
+    });
+  }
+
 
   changeFormat(){
     let ChangedFormat = this.pipe.transform(this.today, 'YYYY-MM-dd HH:mm:ss');
@@ -57,9 +67,19 @@ export class ListaProductosComponent implements OnInit {
         console.log(dato);
         this.obtenerProductos();
       },error => console.log(error));
-
     });
+  }
 
+  esDeseado(id:number):boolean{
+
+    let deseado = false;
+    for (let i = 0; i < this.deseos.length; i++) {
+      const e = this.deseos[i];
+      if(e.producto.id == id){
+        deseado = true;
+      }
+    }
+    return deseado;
   }
 
 }

@@ -27,6 +27,7 @@ export class ListaDeseosComponent implements OnInit {
     this.deseoServicio.eliminarDeseo(id).subscribe(dato => {
       this.obtenerDeseos();
     });
+    return false;
   }
 
 }
