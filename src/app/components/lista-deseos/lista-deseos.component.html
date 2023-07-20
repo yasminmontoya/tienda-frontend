@@ -3,12 +3,12 @@
 <div class="row row-flex">
   <div class="col-md-3 pb-4" *ngFor="let deseo of deseos">
     <div class="card">
-      <img class="card-img-top" src="https://picsum.photos/640/360" alt="Card image cap">
+      <img class="card-img-top" src="{{deseo.producto.imagenUrl}}" alt="Card image cap">
       <div class="card-body">
-        <h5 class="card-title">Nombre: {{deseo.producto.nombre}}</h5>
-        <p class="card-text">Precio : $ {{deseo.producto.precio}}</p>
-        <p class="card-text">Cantidad : {{deseo.producto.cantidad}}</p>
-        <a href="#" (click)="eliminarDeseo(deseo.id)" class="btn btn-danger">Eliminar de la lista de deseos</a>
+        <h5 class="card-title">{{deseo.producto.nombre}}</h5>
+        <p class="card-text">Precio : $ {{deseo.producto.precio}}
+          <br>Cantidad : {{deseo.producto.cantidad}}</p>
+        <a href="#" (click)="eliminarDeseo(deseo.id)" class="btn btn-danger">Eliminar</a>
       </div>
     </div>
   </div>

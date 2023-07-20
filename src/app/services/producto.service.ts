@@ -17,4 +17,9 @@ export class ProductoService {
     obtenerListaDeProductos():Observable<Producto[]>{
       return this.httpClient.get<Producto[]>(`${this.baseURL}`);
     }
+
+    //este metodo sirve para obtener o buscar un empleado
+    obtenerProductoPorId(id:number):Observable<Producto>{
+      return this.httpClient.get<Producto>(`${this.baseURL}/${id}`);
+    }
 }

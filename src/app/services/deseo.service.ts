@@ -18,6 +18,11 @@ export class DeseoService {
         return this.httpClient.get<Deseo[]>(`${this.baseURL}`);
       }
 
+      //este metodo nos sirve para registrar un deseo
+      registrarDeseo(deseo:Deseo) : Observable<Object>{
+        return this.httpClient.post(`${this.baseURL}`,deseo);
+      }
+
       //este metodo nos sirve para eliminar un deseo
       eliminarDeseo(id:number): Observable<Object>{
         return this.httpClient.delete(`${this.baseURL}/${id}`);
