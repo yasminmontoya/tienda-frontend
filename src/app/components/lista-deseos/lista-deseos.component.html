@@ -6,8 +6,9 @@
       <img class="card-img-top" src="{{deseo.producto.imagenUrl}}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">{{deseo.producto.nombre}}</h5>
-        <p class="card-text">Precio : $ {{deseo.producto.precio}}
-          <br>Cantidad : {{deseo.producto.cantidad}}</p>
+        <p class="card-text">Precio : $ {{deseo.producto.precio}}</p>
+        <p  class="card-text" *ngIf="deseo.producto.cantidad>0">Cantidad : {{deseo.producto.cantidad}}</p>
+        <p  class="card-text text-danger" *ngIf="deseo.producto.cantidad==0">No hay stock disponible</p>
         <button type="button" class="btn btn-danger" (click)="eliminarDeseo(deseo.id, deseo.producto.id)">Eliminar</button>
       </div>
     </div>

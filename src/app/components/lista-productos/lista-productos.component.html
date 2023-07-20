@@ -6,8 +6,9 @@
       <img class="card-img-top" src="{{producto.imagenUrl}}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">{{producto.nombre}}</h5>
-        <p class="card-text">Precio : $ {{producto.precio}}
-          <br>Cantidad : {{producto.cantidad}}</p>
+        <p class="card-text">Precio : $ {{producto.precio}}</p>
+        <p  class="card-text" *ngIf="producto.cantidad>0">Cantidad : {{producto.cantidad}}</p>
+        <p  class="card-text text-danger" *ngIf="producto.cantidad==0">No hay stock disponible</p>
         <button type="button" class="btn btn-primary" (click)="agregarDeseo(producto.id)" [disabled]="esDeseado(producto.id)">Agregar</button>
       </div>
     </div>

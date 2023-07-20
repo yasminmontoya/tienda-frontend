@@ -81,7 +81,6 @@ export class ListaProductosComponent implements OnInit {
             'success'
           )
           //this.router.navigate(['/deseos']);
-          //window.location.reload();
           setTimeout(() =>
           {
             window.location.reload();

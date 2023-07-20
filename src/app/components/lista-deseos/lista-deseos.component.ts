@@ -29,6 +29,7 @@ export class ListaDeseosComponent implements OnInit {
   private obtenerDeseos(){
     this.deseoServicio.obtenerListaDeDeseos().subscribe(dato => {
       this.deseos = dato;
+      this.productoSinStock();
     });
   }
 
@@ -71,5 +72,22 @@ export class ListaDeseosComponent implements OnInit {
         });
       }
     });
+  }
+
+  productoSinStock(){
+    let cantidad = 0;
+    for (let i = 0; i < this.deseos.length; i++) {
+      const e = this.deseos[i];
+      if(e.producto.cantidad == 0){
+        cantidad ++;
+      }
+    }
+    if(cantidad > 0 ){
+      swal(
+        'Producto sin stock',
+        'Actualmente ' + cantidad +  ' de sus productos se encuentran sin stock',
+        'warning'
+      )
+    }
   }
 }
