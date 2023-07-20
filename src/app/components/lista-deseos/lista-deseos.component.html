@@ -8,7 +8,7 @@
         <h5 class="card-title">{{deseo.producto.nombre}}</h5>
         <p class="card-text">Precio : $ {{deseo.producto.precio}}
           <br>Cantidad : {{deseo.producto.cantidad}}</p>
-        <button type="button" class="btn btn-danger" (click)="eliminarDeseo(deseo.id)">Eliminar</button>
+        <button type="button" class="btn btn-danger" (click)="eliminarDeseo(deseo.id, deseo.producto.id)">Eliminar</button>
       </div>
     </div>
   </div>

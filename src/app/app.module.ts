@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { ListaProductosComponent } from './components/lista-productos/lista-productos.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ListaDeseosComponent } from './components/lista-deseos/lista-deseos.component';
+import { ListaHistoricoComponent } from './components/lista-historico/lista-historico.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListaProductosComponent,
-    ListaDeseosComponent
+    ListaDeseosComponent,
+    ListaHistoricoComponent
   ],
   imports: [
     BrowserModule,
